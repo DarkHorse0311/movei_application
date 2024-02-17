@@ -1,4 +1,4 @@
-package handler
+package http
 
 import (
 	"encoding/json"
@@ -6,22 +6,22 @@ import (
 	"log"
 	"net/http"
 
-	"movieexample.com/metadata/internal/controller"
+	"movieexample.com/metadata/internal/controller/metadata"
 	"movieexample.com/metadata/internal/repository"
 )
 
 // Handler defines a movie metadata HTTP handler.
 type Handler struct {
-	ctrl *controller.Controller
+	ctrl *metadata.Controller
 }
 
 // New creates a new movie metadata HTTP handler.
-func New(ctrl *controller.Controller) *Handler {
-	return &Handler{}
+func New(ctrl *metadata.Controller) *Handler {
+	return &Handler{ctrl}
 }
 
 // GetMetdata handles GET /metadata requests.
-func (h *Handler) GetMetadata(w http.ResponseWriter, r http.Request) {
+func (h *Handler) GetMetadata(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 	if id == "" {
 		w.WriteHeader(http.StatusBadRequest)
