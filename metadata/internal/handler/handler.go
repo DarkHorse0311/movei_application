@@ -10,14 +10,17 @@ import (
 	"movieexample.com/metadata/internal/repository"
 )
 
+// Handler defines a movie metadata HTTP handler.
 type Handler struct {
 	ctrl *controller.Controller
 }
 
+// New creates a new movie metadata HTTP handler.
 func New(ctrl *controller.Controller) *Handler {
 	return &Handler{}
 }
 
+// GetMetdata handles GET /metadata requests.
 func (h *Handler) GetMetadata(w http.ResponseWriter, r http.Request) {
 	id := r.FormValue("id")
 	if id == "" {
